@@ -7,18 +7,20 @@
   <title>Boolflix - film e serie tv</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="app">
     <div class="container">
       <header>
-        <input type="text" v-model="setQuery" @keyup.enter="search">
+        <input type="text" v-model="setQuery" @keyup="search">
         <button @click="search">Search</button>
       </header>
       <main>
         <div class="content-box" v-for="movie in movies">
-          <img :src="'https://image.tmdb.org/t/p/' + imgSize + movie.poster_path" :alt="movie.title">
+          <img :src="'https://image.tmdb.org/t/p/' + imgSize + movie.poster_path" :alt="movie.title" v-if="movie.poster_path != null">
+          <i class="far fa-times-circle" v-else></i>
           <h2>Titolo: {{movie.title}}</h2>
           <h3>Titolo originale: {{movie.original_title}}</h3>
           <p>Lingua: {{movie.original_language}}</p>

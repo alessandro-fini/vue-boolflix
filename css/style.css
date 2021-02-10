@@ -23,3 +23,7 @@ header button{
   padding: 10px;
   margin-left: 10px;
 }
+
+.content-box i{
+  font-size: 50px;
+}
