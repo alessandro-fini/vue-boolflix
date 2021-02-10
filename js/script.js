@@ -6,11 +6,15 @@ let app = new Vue ({
     setQuery: '',
     lang: 'it',
     /* / */
+    imgSize: 'w342',
     movies: '',
-    imgSize: 'w342'
+    tvShows: '',
+    /* merged array di movies e tvShows */
+    moSho: ''
   },
   methods: {
     search: function() {
+      /* film */
       axios
         .get('https://api.themoviedb.org/3/search/movie', {
           params: {
@@ -21,6 +25,22 @@ let app = new Vue ({
         })
         .then((result) => {
           this.movies = result.data.results;
+        })
+        .catch((error) => console.log(error));
+      /* serie tv */
+      axios
+        .get('https://api.themoviedb.org/3/search/tv', {
+          params: {
+            api_key: this.apiKey,
+            query: this.setQuery,
+            language: this.lang
+          }
+        })
+        .then((result) => {
+          this.tvShows = result.data.results;
+          this.moSho = [...this.movies, ...this.tvShows];
+          console.log(this.tvShows);
+          console.log(this.moSho);
         })
         .catch((error) => console.log(error));
     }
