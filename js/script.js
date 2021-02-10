@@ -39,10 +39,15 @@ let app = new Vue ({
         .then((result) => {
           this.tvShows = result.data.results;
           this.moSho = [...this.movies, ...this.tvShows];
-          console.log(this.tvShows);
-          console.log(this.moSho);
+          this.score();
         })
         .catch((error) => console.log(error));
+    },
+    /* arrotondamento voti */
+    score: function() {
+      this.moSho.forEach((element) => {
+        element.vote_average = Math.ceil(element.vote_average / 2);
+      });
     }
   }
 });

@@ -24,7 +24,14 @@
           <h2>Titolo: {{item.title || item.name}}</h2>
           <h3>Titolo originale: {{item.original_title || item.original_name}}</h3>
           <p>Lingua: {{item.original_language}}</p>
-          <p>Voto: {{item.vote_average}}</p>
+          <p>
+            Voto: {{item.vote_average}}
+            <i class="fas fa-star" :class="(item.vote_average == 1 || item.vote_average > 1) ? 'star' : ''"></i>
+            <i class="fas fa-star" :class="(item.vote_average == 2 || item.vote_average > 2) ? 'star' : ''"></i>
+            <i class="fas fa-star" :class="(item.vote_average == 3 || item.vote_average > 3) ? 'star' : ''"></i>
+            <i class="fas fa-star" :class="(item.vote_average == 4 || item.vote_average > 4) ? 'star' : ''"></i>
+            <i class="fas fa-star" :class="(item.vote_average == 5) ? 'star' : ''"></i>
+          </p>
         </div>
       </main>
     </div>
