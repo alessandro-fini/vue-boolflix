@@ -6,7 +6,8 @@ let app = new Vue ({
     setQuery: '',
     lang: 'it',
     /* / */
-    movies: ''
+    movies: '',
+    imgSize: 'w342'
   },
   methods: {
     search: function() {
@@ -20,7 +21,6 @@ let app = new Vue ({
         })
         .then((result) => {
           this.movies = result.data.results;
-          console.log(this.movies);
         })
         .catch((error) => console.log(error));
     }

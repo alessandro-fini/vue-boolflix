@@ -18,6 +18,7 @@
       </header>
       <main>
         <div class="content-box" v-for="movie in movies">
+          <img :src="'https://image.tmdb.org/t/p/' + imgSize + movie.poster_path" :alt="movie.title">
           <h2>Titolo: {{movie.title}}</h2>
           <h3>Titolo originale: {{movie.original_title}}</h3>
           <p>Lingua: {{movie.original_language}}</p>
