@@ -8,30 +8,42 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="app">
     <div class="container">
       <header>
-        <input type="text" v-model="setQuery" @keyup.enter="search">
-        <button @click="search">Search</button>
+        <img src="img/netflix-logo.png" alt="logo">
+        <nav>
+          <input type="text" v-model="setQuery" @keyup.enter="search">
+          <i class="fas fa-search" @click="search"></i>
+          <i class="fas fa-users"></i>
+        </nav>
       </header>
       <main>
         <div class="content-box" v-for="item in moSho">
-          <img :src="'https://image.tmdb.org/t/p/' + imgSize + item.poster_path" :alt="item.title || item.name" v-if="item.poster_path != null">
-          <i class="far fa-times-circle" v-else></i>
-          <h2>Titolo: {{item.title || item.name}}</h2>
-          <h3>Titolo originale: {{item.original_title || item.original_name}}</h3>
-          <p>Lingua: {{item.original_language}}</p>
-          <p>
-            Voto: {{item.vote_average}}
-            <i class="fas fa-star" :class="(item.vote_average == 1 || item.vote_average > 1) ? 'star' : ''"></i>
-            <i class="fas fa-star" :class="(item.vote_average == 2 || item.vote_average > 2) ? 'star' : ''"></i>
-            <i class="fas fa-star" :class="(item.vote_average == 3 || item.vote_average > 3) ? 'star' : ''"></i>
-            <i class="fas fa-star" :class="(item.vote_average == 4 || item.vote_average > 4) ? 'star' : ''"></i>
-            <i class="fas fa-star" :class="(item.vote_average == 5) ? 'star' : ''"></i>
-          </p>
+          <div class="img-container">
+            <img  id="img-found" :src="'https://image.tmdb.org/t/p/' + imgSize + item.poster_path" :alt="item.title || item.name" v-if="item.poster_path != null">
+            <img id="img-not-found" src="img/image-not-found.png" alt="no image" v-else>
+            <div class="layer">
+              <p>Titolo: {{item.title || item.name}}</p>
+              <p>Titolo originale: {{item.original_title || item.original_name}}</p>
+              <p>
+                <span>Voto: </span>
+                <i class="fas fa-star" :class="(item.vote_average == 1 || item.vote_average > 1) ? 'star' : ''"></i>
+                <i class="fas fa-star" :class="(item.vote_average == 2 || item.vote_average > 2) ? 'star' : ''"></i>
+                <i class="fas fa-star" :class="(item.vote_average == 3 || item.vote_average > 3) ? 'star' : ''"></i>
+                <i class="fas fa-star" :class="(item.vote_average == 4 || item.vote_average > 4) ? 'star' : ''"></i>
+                <i class="fas fa-star" :class="(item.vote_average == 5) ? 'star' : ''"></i>
+              </p>
+              <p id="overview">Descrizione: {{(item.overview == '') ? 'non disponibile.' : item.overview}}</p>
+              <span>Lingua: </span>
+              <img :src="'img/' + item.original_language + '.svg'" :alt="item.original_language">
+            </div>
+          </div>
         </div>
       </main>
     </div>
