@@ -25,6 +25,7 @@ let app = new Vue ({
         })
         .then((result) => {
           this.movies = result.data.results;
+          this.moSho = [...this.movies, ...this.tvShows];
         })
         .catch((error) => console.log(error));
       /* serie tv */
@@ -41,22 +42,9 @@ let app = new Vue ({
           this.moSho = [...this.movies, ...this.tvShows];
           this.score();
           /* nomi attori film */
-          this.movies.forEach((element) => {
-            axios
-              .get('https://api.themoviedb.org/3/movie/' + element.id + '/credits', {
-                params: {
-                  api_key: this.apiKey
-                }
-              })
-              .then((result) => {
-                let total = [];
-                for (let i = 0; i < 5; i++) {
-                  let castResult = result.data.cast[i].name;
-                  total.push(castResult);
-                  element.adult = total;             
-                }
-              })
-          });
+          this.getCast(this.movies, 'movie');
+          /* nomi attori tv-show */
+          this.getCast(this.tvShows, 'tv');
         })
         .catch((error) => console.log(error));
     },
@@ -64,6 +52,26 @@ let app = new Vue ({
     score: function() {
       this.moSho.forEach((element) => {
         element.vote_average = Math.ceil(element.vote_average / 2);
+      });
+    },
+    /* nomi cast */
+    getCast: function(where, param) {
+      where.forEach((element) => {
+        axios
+          .get('https://api.themoviedb.org/3/' + param + '/' + element.id + '/credits', {
+            params: {
+              api_key: this.apiKey
+            }
+          })
+          .then((result) => {
+            let total = [];
+            for (let i = 0; i < 5; i++) {
+              let castResult = result.data.cast[i].name;
+              total.push(castResult);
+              element.cast = total; 
+              this.$forceUpdate(element.cast); 
+            }        
+          });
       });
     }
   }

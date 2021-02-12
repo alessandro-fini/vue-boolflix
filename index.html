@@ -42,14 +42,9 @@
               <p id="overview">Descrizione: <em>{{(item.overview == '') ? 'non disponibile.' : item.overview}}</em></p>
               <span>Lingua: </span>
               <img :src="'img/' + item.original_language + '.svg'" :alt="item.original_language">
-              <p>Attori: 
-                <span v-for="(actor, index) in item.adult">
-                  <em>{{actor + ', '}}</em>
-                  <span v-if="index == item.adult.length - 1">
-                    <em>{{actor + '.'}}</em>
-                  </span>
-                </span>
-              </p>
+              <ul>
+                <li v-for="actor in item.cast"><em>{{actor}}</em></li>
+              </ul>
             </div>
           </div>
         </div>
