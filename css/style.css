@@ -109,7 +109,7 @@ main .content-box{
 }
 
 #overview{
-  max-height: 40%;
+  max-height: 28%;
   overflow-y: hidden;
 }
 
@@ -122,4 +122,8 @@ main .content-box{
   height: 15px;
   margin: 10px;
   vertical-align: middle;
+}
+
+.layer ul{
+  margin-bottom: 10px;
 }

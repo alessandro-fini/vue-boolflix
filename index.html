@@ -45,6 +45,13 @@
               <ul>
                 <li v-for="actor in item.cast"><em>{{actor}}</em></li>
               </ul>
+              <span>Genere: 
+                <span v-for="el in item.genre_ids">
+                  <span v-for="dat in movieGen">
+                    {{(el == dat.id) ? dat.name : ''}}
+                  </span>
+                </span>
+              </span>
             </div>
           </div>
         </div>
