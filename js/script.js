@@ -40,6 +40,23 @@ let app = new Vue ({
           this.tvShows = result.data.results;
           this.moSho = [...this.movies, ...this.tvShows];
           this.score();
+          /* nomi attori film */
+          this.movies.forEach((element) => {
+            axios
+              .get('https://api.themoviedb.org/3/movie/' + element.id + '/credits', {
+                params: {
+                  api_key: this.apiKey
+                }
+              })
+              .then((result) => {
+                let total = [];
+                for (let i = 0; i < 5; i++) {
+                  let castResult = result.data.cast[i].name;
+                  total.push(castResult);
+                  element.adult = total;             
+                }
+              })
+          });
         })
         .catch((error) => console.log(error));
     },
