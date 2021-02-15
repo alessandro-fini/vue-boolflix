@@ -16,6 +16,28 @@ let app = new Vue ({
     tvGen: [],
     allGen: []
   },
+  mounted() {
+    axios
+        .get('https://api.themoviedb.org/3/discover/movie', {
+          params: {
+            api_key: this.apiKey,
+            language: this.lang,
+            sort_by: 'popularity.desc'
+          }
+        })
+        .then((result) => {
+          this.movies = result.data.results;
+          this.moSho = [...this.movies, ...this.tvShows];
+          this.score();
+          /* nomi attori film */
+          this.getCast(this.movies, 'movie');
+          /* nomi attori tv-show */
+          this.getCast(this.tvShows, 'tv');
+          this.getGenre('movie', this.movieGen);
+          this.getGenre('tv', this.tvGen);
+        })
+        .catch((error) => console.log(error));
+  },
   methods: {
     search: function() {
       /* film */
